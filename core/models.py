@@ -96,6 +96,7 @@ class Comment(models.Model):
 # This model allows files to be attached to tasks, such as documents or images.
 class Attachment(models.Model):
     task = models.ForeignKey(Task, on_delete=models.CASCADE, related_name="attachments")
+    description = models.TextField(blank=True, null=True)   
     file = models.FileField(upload_to='attachments/')
     uploaded_at = models.DateTimeField(default=timezone.now)
 
@@ -106,11 +107,13 @@ class Attachment(models.Model):
 # This model allows users to set reminders for tasks, which can notify them before the task's due date.
 class Reminder(models.Model):
     task = models.ForeignKey(Task, on_delete=models.CASCADE, related_name="reminders")
+    reminder_date = models.DateField(default=timezone.now,verbose_name="Reminder Date")
     reminder_time = models.DateTimeField(verbose_name="Reminder Time")
+    message = models.TextField(verbose_name="Reminder Message", blank=True)
     is_sent = models.BooleanField(default=False, verbose_name="Reminder Sent")
 
     def __str__(self):
-        return f"Reminder for {self.task.title} at {self.reminder_time}"
+        return f"Reminder for {self.task.title} at {self.reminder_date} {self.reminder_time}"
 
 # Tag Model
 # This model allows tags to be assigned to tasks for better organization and filtering.
