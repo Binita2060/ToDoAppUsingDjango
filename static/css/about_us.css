@@ -1,0 +1,94 @@
+/* General Styling */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding-bottom: 1px;
+}
+
+/* Heading Styling */
+.about-us-heading {
+    color: #ff6f61;
+    font-size: 3rem;
+    font-weight: 700;
+    border-bottom: 3px solid #ff6f61;
+    padding-bottom: 0.75rem;
+}
+
+/* Card Styling */
+.card {
+    border-radius: 0.5rem;
+    transition: transform 0.2s, box-shadow 0.2s;
+    overflow: hidden;
+    margin-bottom: 1.5rem;
+}
+
+.card:hover {
+    transform: scale(1.02);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.card-header {
+    border-bottom: none;
+    font-size: 1.25rem;
+    background-color: #007bff;
+    color: #ffffff;
+    padding: 1rem;
+}
+
+.card-body {
+    background-color: #ffffff;
+    color: #333333;
+    padding: 2rem;
+    margin-bottom: 0.2 rem;
+}
+
+.card-body p {
+    margin-bottom: 0.2rem; /* Adjust paragraph spacing to reduce card height */
+}
+
+/* Team Section Styling */
+.team-list {
+    list-style: none;
+    padding: 0;
+}
+
+.team-member {
+    background-color: #f8f9fa;
+    border-radius: 0.5rem;
+    padding: 0.5rem;
+    border-bottom: 1px solid #ddd;
+    margin-bottom: 0.2rem;
+}
+
+.team-member:last-child {
+    border-bottom: none;
+}
+
+.font-weight-bold {
+    font-weight: 700;
+}
+
+/* Section Styling */
+#mission-content, #vision-content, #story-content {
+    position: relative;
+}
+
+#more-mission-text, #more-vision-text, #more-story-text {
+    margin-top: 1rem;
+    color: #666;
+}
+
+#toggle-mission-button, #toggle-vision-button, #toggle-story-button {
+    margin-top: 1rem;
+    background-color: #17a2b8;
+    border-color: #17a2b8;
+}
+
+#toggle-mission-button:hover, #toggle-vision-button:hover, #toggle-story-button:hover {
+    background-color: #138496;
+    border-color: #138496;
+}
+
+.d-none {
+    display: none;
+}

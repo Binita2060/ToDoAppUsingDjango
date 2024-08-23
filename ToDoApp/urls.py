@@ -16,9 +16,9 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-# from django.conf import settings
-# from django.conf.urls.static import static
-
+from django.conf import settings
+from django.conf.urls.static import static
+from django.contrib.auth import views as auth_views
 from core.views import *
 
 urlpatterns = [
@@ -31,12 +31,17 @@ urlpatterns = [
     #Homepage for aunthenticated users# Homepage for Authenticated Users: Displays to-do lists and pending tasks for logged-in users.
     path('home/', homepage, name='home'),
     
-    #User signup and login
+    #About Us and Contact US 
+    path("about/", about_us, name="about_us"),   
+    path("contact/", contact_us, name="contact_us"),
+    
+    #User signup, login, and logout
     path('signup/', signup, name='signup'),  # User Signup: Route for user registration. Handles user creation and profile setup.
     path('login/', login, name='login'),  # User Login: Route for user login using Django's built-in authentication view
-    
-     # User Profile: Allows users to view and update their profile information.
-    path('profile/', profile, name='userprofile'),
+    path('logout/', user_logout, name='logout'),  # User Logout: Route for user logout using Django's built-in authentication view
+     
+    # User Profile: Allows users to view and update their profile information.
+    path('userprofile/', userprofile, name='userprofile'),
     
     #To-DO List Operations
     path('todolist/',view_all_todolists, name='view_alltodolists'), # View All To-Do Lists: Displays all to-do lists for the authenticated user.
@@ -59,6 +64,9 @@ urlpatterns = [
     # Notifications and Activity Log
     path('notifications/', notifications, name='notifications'), # Notifications: Displays unread notifications for the user and marks them as read.
     path('activity-log/', activity_log, name='activity_log'), # Activity Log: Shows the user's activity log, detailing actions on tasks and to-do lists.
-    
+  
 ]
 
+if settings.DEBUG:
+    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

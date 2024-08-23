@@ -3,24 +3,74 @@ from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.models import User
 from core.models import *
 
-# SignupForm
+class PasswordResetRequestForm(forms.Form):
+    email = forms.EmailField(label='Enter your email address', max_length=254)
 class SignupForm(UserCreationForm):
     email = forms.EmailField(
         required=True,
-        widget=forms.EmailInput(attrs= {'placeholder': 'Enter your email..'}),
+        widget=forms.EmailInput(attrs={'placeholder': 'Enter your email', 'class': 'form-field'}),
         help_text="We'll never share your email with anyone else.",
         label="Email Address"
     )
+    full_name = forms.CharField(
+        max_length=100,
+        widget=forms.TextInput(attrs={'placeholder': 'Display Name', 'class': 'form-field'}),
+        label="Display Name"
+    )
+    dob = forms.DateField(
+        widget=forms.DateInput(attrs={'type': 'date', 'class': 'form-field'}),
+        label="Date of Birth"
+    )
+    gender = forms.ChoiceField(
+        choices=[('gender', 'Gender'),('male', 'Male'), ('female', 'Female'), ('other', 'Other')],
+        widget=forms.Select(attrs={'placeholder': 'Gender','class': 'form-field'}),
+        label="Gender"
+    )
+    phone_number = forms.CharField(
+        max_length=15,
+        widget=forms.TextInput(attrs={'placeholder': 'Phone', 'class': 'form-field'}),
+        label="Phone"
+    )
+    address = forms.CharField(
+        max_length=255,
+        widget=forms.TextInput(attrs={'placeholder': 'Address', 'class': 'form-field'}),
+        label="Address"
+    )
+    password1 = forms.CharField(
+        widget=forms.PasswordInput(attrs={'placeholder': 'Enter password', 'class': 'form-field'}),
+        help_text="Enter a strong password.",
+        label="Password"
+    )
+    password2 = forms.CharField(
+        widget=forms.PasswordInput(attrs={'placeholder': 'Confirm password', 'class': 'form-field'}),
+        help_text="Enter the same password as above, for verification.",
+        label="Confirm Password"
+    )
+    profile_image = forms.ImageField(
+        required=False,
+        widget=forms.ClearableFileInput(attrs={'class': 'form-field'}),
+        label="Profile Image"
+    )
+    
     class Meta:
         model = User
-        fields = ['username', 'email', 'password1', 'password2']
+        fields = ['username', 'email', 'password1', 'password2', 'full_name', 'dob', 'gender', 'phone_number', 'address', 'profile_image']
         widgets = {
-            'username': forms.TextInput(attrs={'placeholder': 'Choose a username...'}),
+            'username': forms.TextInput(attrs={'placeholder': 'Choose a username...', 'class': 'form-field'}),
+            'password1': forms.PasswordInput(attrs={'placeholder': 'Enter password...', 'class': 'form-field'}),
+            'password2': forms.PasswordInput(attrs={'placeholder': 'Confirm password...', 'class': 'form-field'}),
         }
         labels = {
             'username': "Username",
+            'email': "Email Address",
             'password1': "Password",
             'password2': "Confirm Password",
+            'full_name': "Display Name",
+            'dob': "Date of Birth",
+            'gender': "Gender",
+            'phone_number': "Phone",
+            'address': "Address",
+            'profile_image': "Profile Image",
         }
         help_texts = {
             'username': "Choose a unique username for your account.",
@@ -29,18 +79,25 @@ class SignupForm(UserCreationForm):
 # Login Form
 class LoginForm(AuthenticationForm):
     username = forms.CharField(
-        widget=forms.TextInput(attrs={'placeholder': 'Enter your username...'}),
-        label="Username"
+        widget=forms.TextInput(attrs={'placeholder': 'Enter your username...', 'class': 'form-field'}),
+        label="Username" 
     )
     password = forms.CharField(
-        widget=forms.PasswordInput(attrs={'placeholder': 'Enter your password...'}),
+        widget=forms.PasswordInput(attrs={'placeholder': 'Enter your password...', 'class': 'form-field'}),
         label="Password"
     )
 
     class Meta:
         model = User
         fields = ['username', 'password']
-
+        widgets = {
+            'username': forms.TextInput(attrs={'placeholder': 'Enter username...', 'class': 'form-field'}),
+            'password': forms.PasswordInput(attrs={'placeholder': 'Enter password...', 'class': 'form-field'}),
+        }
+        labels = {
+            'username': "Username",
+            'password': "Password",
+        }
 
 # TaskForm
 class TaskForm(forms.ModelForm):

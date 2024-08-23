@@ -3,9 +3,42 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>User Profile</title>
+    <!-- Add any CSS or JS files you need here -->
 </head>
 <body>
-    
+    <div class="container">
+        <h1>User Profile</h1>
+
+        <!-- Display success or error messages -->
+        {% if messages %}
+            <div class="messages">
+                {% for message in messages %}
+                    <div class="alert alert-{{ message.tags }}">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+
+        <!-- User profile form -->
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ the_form.as_p }}
+            <button type="submit" class="btn btn-primary">Update Profile</button>
+        </form>
+        
+        <!-- Display user profile information -->
+        <div class="profile-info">
+            <h2>Your Profile Information</h2>
+            <p><strong>Bio:</strong> {{ user_profile.bio }}</p>
+            <p><strong>Address:</strong> {{ user_profile.address }}</p>
+            <p><strong>Birth Date:</strong> {{ user_profile.birth_date }}</p>
+            <p><strong>Age:</strong> {{ user_profile.age }}</p>
+            <p><strong>Email:</strong> {{ user_profile.email }}</p>
+            <p><strong>Gender:</strong> {{ user_profile.gender }}</p>
+            <p><strong>Phone Number:</strong> {{ user_profile.phone_number }}</p>
+        </div>
+    </div>
 </body>
 </html>

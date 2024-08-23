@@ -1,8 +1,9 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth import views as auth_views
+from django.contrib.auth import authenticate, login as auth_login
 from django.contrib import messages
 from django.core.paginator import Paginator
+from django.contrib.auth import logout
 
 from core.models import *
 from core.forms import *
@@ -29,29 +30,61 @@ def homepage(request):
 
 # Signup view--This view handles user registration. It creates a new user and their associated profile. 
 def signup(request):
-    the_form = SignupForm()
     if request.method == 'POST':
-        the_form = SignupForm(request.POST)
+        the_form = SignupForm(request.POST, request.FILES)
         if the_form.is_valid():
             user = the_form.save()
             UserProfile.objects.create(user=user)
-            messages.success(request, 'Account created successfully!')
+            messages.success(request, 'Account created successfully! Please log in.')
             return redirect('login')
-    context = {
-        'the_form': the_form
-    }
-    return render(request=request, template_name='ToDoApp/signup.html', context=context)
-  
+        else:
+            # Print form errors to debug
+            print(the_form.errors)
+            error_message = "There was a problem with your registration. Please try again."
+            context = {'the_form': the_form, 'error_message': error_message}
+            return render(request=request, template_name='ToDoApp/signup.html', context=context)
+    else:
+        the_form = SignupForm()
+        context = {'the_form': the_form}
+        return render(request=request, template_name='ToDoApp/signup.html', context=context)
+
 # Login View-This view handles user login. It uses Django's built-in authentication view.
 def login(request):
-    if request.user.is_authenticated:
-        return redirect('home')
-    return auth_views.LoginView.as_view(template_name='ToDoApp/login.html')(request)  
+    if request.method == 'POST':
+        the_form = LoginForm(data=request.POST)
+        if the_form.is_valid():
+            username = the_form.cleaned_data['username']
+            password = the_form.cleaned_data['password']
+            user = authenticate(request, username=username, password=password)
+            
+            if user is not None:
+                auth_login(request, user)
+                return redirect('home')  # Redirect to the home page upon successful login
+            else:
+                messages.error(request, 'Invalid username or password.')
+    else:
+        the_form = LoginForm()
+        context = {'the_form': the_form}
+        return render(request=request, template_name='ToDoApp/login.html', context=context ) 
+
+#Reset Password
+
+# Logout View - This view handles user logout.
+@login_required
+def user_logout(request):
+    logout(request)
+    messages.success(request, 'You have been logged out.')
+    return redirect('index')  # Redirect to the index page or any other page as needed
 
 #UserProfile View-- This view allows the user to view and update their profile. It is accessible only to authenticated users.
 @login_required
-def profile(request):
-    current_profile = get_object_or_404(UserProfile, user = request.user)
+def userprofile(request):
+    try:
+        current_profile = UserProfile.objects.get(user=request.user)
+    except UserProfile.DoesNotExist:
+        messages.info(request, 'Please create your profile.')
+        return redirect('signup')  # Redirect to a page where the user can create their profile.
+
     if request.method == 'POST':
         the_form = UserProfileForm(request.POST, instance=current_profile)
         if the_form.is_valid():
@@ -60,11 +93,12 @@ def profile(request):
             return redirect('userprofile')
     else:
         the_form = UserProfileForm(instance=current_profile)
+
     context = {
         'the_form': the_form,
         'user_profile': current_profile
     }
-    return render(request=request, template_name='ToDoApp/userprofile.html', context=context)   
+    return render(request=request, template_name='ToDoApp/userprofile.html', context=context)
 
 # Get_todolist_details-- This view displays the details of a specific to-do list, including its tasks.
 @login_required
@@ -280,3 +314,10 @@ def activity_log(request):
         'log_entries': log_entries
     }
     return render(request=request, template_name='ToDoApp/activity_log.html', context=context)
+
+
+def about_us(request):
+    return render(request, 'ToDoApp/about_us.html')
+
+def contact_us(request):
+    return render(request, 'ToDoApp/contact_us.html')
