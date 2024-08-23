@@ -1,0 +1,90 @@
+{% extends 'ToDoApp/base.html' %}
+
+{% load static %}
+
+{% block title %}Login{% endblock %}
+
+{% block head %}
+<link rel="stylesheet" href="{% static 'css/login.css' %}">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.2/css/all.css" integrity="sha384-vSIIfh2YWi9wW0r9iZe7RJPrKwp6bG+s9QZMoITbCckVJqGCCRhc+ccxNcdpHuYu" crossorigin="anonymous">
+{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <!-- Display error message if present -->
+    {% if error_message %}
+        <div class="alert alert-danger" role="alert">
+            {{ error_message }}
+        </div>
+    {% endif %}
+
+    <!-- Login Form -->
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card border-dark shadow-lg">
+                <div class="card-header bg-primary text-white">
+                    <h3 class="card-title mb-0 text-center">Login to Your Account</h3>
+                </div>
+                <div class="card-body">
+                    {% if messages %}
+                        {% for message in messages %}
+                            <div class="alert alert-success" role="alert">
+                                {{ message }}
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                    <form id="signin" class="form-signin" action="{% url 'login' %}" method="post">
+                        {% csrf_token %}
+                        {{ the_form.non_field_errors }}
+                        
+                        <div class="input-container mb-3">
+                            {{ the_form.username.errors }}
+                            <div class="input-container__content">
+                                <span class="user-icon"><i class="far fa-user"></i></span>
+                                {{ the_form.username }}
+                                <label for="{{ the_form.username.id_for_label }}" class="label-format">{{ the_form.username.label }}</label>
+                            </div>
+                        </div>
+
+                        <div class="input-container mb-3">
+                            {{ the_form.password.errors }}
+                            <div class="input-container__content">
+                                <span class="user-icon"><i class="fas fa-unlock-alt"></i></span>
+                                {{ the_form.password }}
+                                <label for="{{ the_form.password.id_for_label }}" class="label-format">{{ the_form.password.label }}</label>
+                            </div>
+                        </div>
+
+                        <div class="forgot-password mb-3">
+                            <div class="form-check">
+                                <input type="checkbox" id="remember-me" name="remember_me" class="form-check-input">
+                                <label for="remember-me" class="form-check-label">Remember me</label>
+                            </div>
+                            <div>
+                                <a href="{% url 'signup' %}">Forgot your password?</a>
+                            </div>
+                        </div>
+
+                        <div class="login mb-3">
+                            <button type="submit" class="btn btn-primary">Login</button>
+                        </div>
+
+                        <div class="create mb-3">
+                            <a href="{% url 'signup' %}">
+                                <p>Don’t have an account? Register here!</p>
+                            </a>
+                        </div>
+
+                        <div class="social-media__content">
+                            <span><a class="google" href="https://www.google.com/"><i class="fab fa-google"></i></a></span>
+                            <span><a class="facebook" href="https://www.facebook.com/"><i class="fab fa-facebook-f"></i></a></span>
+                            <span><a class="twitter" href="https://www.twitter.com/"><i class="fab fa-twitter"></i></a></span>
+                            <span><a class="instagram" href="https://www.instagram.com/"><i class="fab fa-instagram"></i></a></span>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

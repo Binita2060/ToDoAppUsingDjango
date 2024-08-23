@@ -1,0 +1,30 @@
+{% extends 'ToDoApp/base.html' %}
+{% load static %}
+
+{% block title %}Delete To-Do List{% endblock %}
+
+{% block head %}
+<link rel="stylesheet" href="{% static 'css/delete_todolist.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-6">
+            <div class="card border-black">
+                <div class="card-header bg-danger text-white text-center">
+                    <h3 class="card-title">Delete To-Do List</h3>
+                </div>
+                <div class="card-body">
+                    <p>Are you sure you want to delete the to-do list titled "<strong>{{ todolist.title }}</strong>"?</p>
+                    <form method="post" class="text-center">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-danger">Delete</button>
+                        <a href="{% url 'view_all_todolists' %}" class="btn btn-secondary ml-2">Cancel</a>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

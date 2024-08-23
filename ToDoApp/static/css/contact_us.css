@@ -1,0 +1,76 @@
+/* General Styling */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+}
+
+/* Card Styling */
+.card {
+    border: none;
+    border-radius: 0.5rem;
+}
+
+.card-header {
+    background-image: linear-gradient(to right top, #8b49dc, #7a3cc7);
+    color: #fff;
+    border-bottom: 1px solid #dee2e6;
+}
+
+.card-body {
+    padding: 2rem;
+}
+
+.card-footer {
+    border-top: 1px solid #dee2e6;
+}
+
+/* Additional Info Section Styling */
+.additional-info {
+    margin-top: 2rem;
+}
+
+.additional-info .card-body {
+    padding: 1.5rem;
+    background-color: #f8f9fa;
+    border: 1px solid #dee2e6;
+    border-radius: 0.5rem;
+}
+
+.additional-info h5 {
+    margin-bottom: 1rem;
+    font-size: 1.25rem;
+}
+
+.additional-info p {
+    font-size: 1rem;
+}
+
+/* Map Container Styling */
+.map-container {
+    overflow: hidden;
+    position: relative;
+    padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
+    height: 0;
+    margin-top: 2rem;
+}
+
+.map-container iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+/* Modal Styling */
+.modal-content {
+    border-radius: 0.5rem;
+}
+
+.modal-header {
+    border-bottom: none;
+}
+
+.modal-footer {
+    border-top: none;
+}

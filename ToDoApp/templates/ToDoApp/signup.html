@@ -1,0 +1,144 @@
+{% extends 'ToDoApp/base.html' %}
+{% load widget_tweaks %}
+{% load static %}
+
+{% block title %}Register{% endblock %}
+
+{% block head %}
+<link rel="stylesheet" href="{% static 'css/signup.css' %}">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.2/css/all.css" integrity="sha384-vSIIfh2YWi9wW0r9iZe7RJPrKwp6bG+s9QZMoITbCckVJqGCCRhc+ccxNcdpHuYu" crossorigin="anonymous">
+{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <!-- Registration Form -->
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card border-dark shadow-lg">
+                <div class="card-header bg-primary text-white">
+                    <h3 class="card-title mb-0 text-center">Create Your Account</h3>
+                </div>
+                <div class="card-body">
+                    {% if messages %}
+                        {% for message in messages %}
+                            <div class="alert alert-success" role="alert">
+                                {{ message }}
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                    {% if error_message %}
+                        <div class="alert alert-danger" role="alert">
+                            {{ error_message }}
+                        </div>
+                    {% endif %}
+                    <form id="signup" class="form-signup" action="{% url 'signup' %}" method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        {{ the_form.non_field_errors }}
+
+                        <div class="input-container mb-3">
+                            {{ the_form.full_name.errors }}
+                            <div class="input-container__content">
+                                <span class="user-icon"><i class="fas fa-info"></i></span>
+                                {{ the_form.full_name }}
+                                <label for="{{ the_form.full_name.id_for_label }}" class="label-format">{{ the_form.full_name.label }}</label>
+                            </div>
+                        </div>
+
+                        <div class="input-container mb-3">
+                            {{ the_form.username.errors }}
+                            <div class="input-container__content">
+                                <span class="user-icon"><i class="far fa-user"></i></span>
+                                {{ the_form.username }}
+                                <label for="{{ the_form.username.id_for_label }}" class="label-format">{{ the_form.username.label }}</label>
+                            </div>
+                        </div>
+
+                        <div class="input-container mb-3">
+                            {{ the_form.dob.errors }}
+                            <div class="input-container__content">
+                                <span class="user-icon"><i class="fas fa-calendar-alt"></i></span>
+                                {{ the_form.dob }}
+                                <label for="{{ the_form.dob.id_for_label }}" class="label-format">{{ the_form.dob.label }}</label>
+                            </div>
+                        </div>
+
+                        <div class="input-container mb-3">
+                            {{ the_form.gender.errors }}
+                            <div class="input-container__content">
+                                <span class="user-icon"><i class="fas fa-venus-mars"></i></span>
+                                {{ the_form.gender }}
+                                <label for="{{ the_form.gender.id_for_label }}" class="label-format">{{ the_form.gender.label }}</label>
+                            </div>
+                        </div>
+
+                        <div class="input-container mb-3">
+                            {{ the_form.phone_number.errors }}
+                            <div class="input-container__content">
+                                <span class="user-icon"><i class="fa fa-phone"></i></span>
+                                {{ the_form.phone_number }}
+                                <label for="{{ the_form.phone_number.id_for_label }}" class="label-format">{{ the_form.phone_number.label }}</label>
+                            </div>
+                        </div>
+
+                        <div class="input-container mb-3">
+                            {{ the_form.address.errors }}
+                            <div class="input-container__content">
+                                <span class="user-icon"><i class="fa fa-home"></i></span>
+                                {{ the_form.address }}
+                                <label for="{{ the_form.address.id_for_label }}" class="label-format">{{ the_form.address.label }}</label>
+                            </div>
+                        </div>
+
+                        <div class="input-container mb-3">
+                            {{ the_form.email.errors }}
+                            <div class="input-container__content">
+                                <span class="user-icon"><i class="fas fa-envelope"></i></span>
+                                {{ the_form.email }}
+                                <label for="{{ the_form.email.id_for_label }}" class="label-format">{{ the_form.email.label }}</label>
+                            </div>
+                        </div>
+
+                        <div class="input-container mb-3">
+                            {{ the_form.password1.errors }}
+                            <div class="input-container__content">
+                                <span class="user-icon"><i class="fas fa-lock"></i></span>
+                                {{ the_form.password1|add_class:"password-field" }}
+                                <label for="{{ the_form.password1.id_for_label }}" class="label-format">{{ the_form.password1.label }}</label>
+                            </div>
+                        </div>
+
+                        <div class="input-container mb-3">
+                            {{ the_form.password2.errors }}
+                            <div class="input-container__content">
+                                <span class="user-icon"><i class="fas fa-lock"></i></span>
+                                {{ the_form.password2|add_class:"password-field" }}
+                                <label for="{{ the_form.password2.id_for_label }}" class="label-format">{{ the_form.password2.label }}</label>
+                            </div>
+                        </div>
+
+                        <div class="input-container mb-3">
+                            {{ the_form.profile_image.errors }}
+                            <div class="input-container__content">
+                                <span class="user-icon"><i class="fas fa-image"></i></span>
+                                {{ the_form.profile_image }}
+                                <label for="{{ the_form.profile_image.id_for_label }}" class="label-format">{{ the_form.profile_image.label }}</label>
+                                <div id="imagePreview"></div>
+                            </div>
+                        </div>
+
+                        <div class="login mb-3">
+                            <button class="btn btn-primary">Register</button>
+                        </div>
+
+                        <div class="create">
+                            <a href="{% url 'login' %}">
+                                <p>Already have an account? Sign in!</p>
+                            </a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,39 @@
+{% extends 'ToDoApp/base.html' %}
+{% load static %}
+{% block title %}Landing Page{% endblock %}
+
+{% block head %}
+<link rel="stylesheet" href="{% static 'css/index.css' %}">
+<!-- Font Awesome for icons -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid landing-container">
+    <div class="row justify-content-center align-items-center text-center">
+        <div class="col-md-6">
+            <div class="jumbotron">
+                <h1 class="display-4-bold">Welcome to ToDoApp</h1>
+                <p class="lead">Your journey to better productivity starts here.</p>
+                <p>Effortlessly manage tasks, set reminders, and stay on top of your goals with our intuitive and user-friendly platform.</p>
+                <ul class="list-unstyled features-list">
+                    <li><i class="fas fa-check-circle"></i> Easy task management</li>
+                    <li><i class="fas fa-check-circle"></i> Set reminders and deadlines</li>
+                    <li><i class="fas fa-check-circle"></i> Track your progress</li>
+                    <li><i class="fas fa-check-circle"></i> Sync across devices</li>
+                </ul>
+                <div class="btn-group">
+                    <a class="btn btn-primary btn-lg start-btn" href="{% url 'login' %}" role="button">
+                        <i class="fas fa-play-circle"></i> Start Here
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="image-container">
+                <img src="{% static 'images/Checklist.png' %}" alt="Productivity Illustration" class="img-fluid illustration">
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

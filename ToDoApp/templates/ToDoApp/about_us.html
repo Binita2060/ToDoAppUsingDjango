@@ -1,0 +1,102 @@
+{% extends 'ToDoApp/base.html' %}
+
+{% load static %}
+
+{% block title %}About Us{% endblock %}
+
+{% block head %}
+<link rel="stylesheet" href="{% static 'css/about_us.css' %}">
+<script src="{% static 'js/about_us.js' %}"></script>
+{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h1 class="mb-4 fs-1 text-center display-4 font-weight-bolder about-us-heading">About Us</h1>
+    
+    <!-- Our Mission Section -->
+    <div class="row mb-5">
+        <div class="col-md-6">
+            <div class="card border-dark shadow-lg h-100">
+                <div class="card-header bg-primary text-white">
+                    <h3 class="card-title mb-0 text-center">Our Mission</h3>
+                </div>
+                <div class="card-body" id="mission-content">
+                    <p class="card-text">Welcome to ToDoApp. We are dedicated to providing an intuitive and effective task management platform that helps you stay organized and productive.</p>
+                    <p class="card-text d-none" id="more-mission-text">Our mission is to create a seamless experience for users while ensuring data security and delivering value through innovative features. We believe in empowering individuals and teams to manage their time and tasks efficiently, enabling them to achieve more in their personal and professional lives. Our commitment to quality and continuous improvement drives us to constantly refine our platform to better serve your needs.</p>
+                    <button class="btn btn-info" id="toggle-mission-button">Read More</button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Our Vision Section -->
+        <div class="col-md-6">
+            <div class="card border-dark shadow-lg h-100">
+                <div class="card-header bg-warning text-white">
+                    <h3 class="card-title mb-0 text-center">Our Vision</h3>
+                </div>
+                <div class="card-body" id="vision-content">
+                    <p class="card-text">Our vision is to be the leading task management solution that empowers individuals and teams to achieve their goals with efficiency and ease.</p>
+                    <p class="card-text d-none" id="more-vision-text">We strive to continuously evolve our platform to meet the changing needs of our users and adapt to new technologies. ToDoApp aims to set the standard in the task management industry by integrating the latest technological advancements and providing top-notch user experiences. We envision a future where every individual and organization can achieve their full potential through effective task management, collaboration, and productivity tools.</p>
+                    <button class="btn btn-info" id="toggle-vision-button">Read More</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Our Team Section -->
+    <div class="row mb-5">
+        <div class="col-md-12">
+            <div class="card border-dark shadow-lg">
+                <div class="card-header bg-success text-white">
+                    <h3 class="card-title mb-0 text-center">Our Team</h3>
+                </div>
+                <div class="card-body">
+                    <div class="team-list row">
+                        <div class="team-member col-md-3 text-center">
+                            <img src="{% static 'images/User.png' %}" alt="Binita Bhandari" class="img-fluid rounded-circle mb-2">
+                            <h5 class="font-weight-bold">Binita Bhandari - Founder & CEO</h5>
+                            <p>Binita is the visionary behind ToDoApp, leading the team with innovation and strategic insight.</p>
+                            <p>With a strong background in technology and business, Binita drives the overall direction of the company, ensuring that ToDoApp stays ahead of the competition.</p>
+                        </div>
+                        <div class="team-member col-md-3 text-center">
+                            <img src="{% static 'images/newUser.png' %}" alt="Bipin Bhandari" class="img-fluid rounded-circle mb-2">
+                            <h5 class="font-weight-bold">Bipin Bhandari - Lead Developer</h5>
+                            <p>Bipin is responsible for the core development of ToDoApp, ensuring its functionality and performance.</p>
+                            <p>His expertise in software development and passion for creating efficient code ensures that the platform runs smoothly and meets the users' needs.</p>
+                        </div>
+                        <div class="team-member col-md-3 text-center">
+                            <img src="{% static 'images/newUser.png' %}" alt="Aashish Karki" class="img-fluid rounded-circle mb-2">
+                            <h5 class="font-weight-bold">Aashish Karki - UX/UI Designer</h5>
+                            <p>Aashish designs the user experience and interface, focusing on usability and aesthetic appeal.</p>
+                            <p>He is dedicated to making ToDoApp not only functional but also a joy to use, with a keen eye for detail and user-centric design principles.</p>
+                        </div>
+                        <div class="team-member col-md-3 text-center">
+                            <img src="{% static 'images/User.png' %}" alt="Suprinsha Kc" class="img-fluid rounded-circle mb-2">
+                            <h5 class="font-weight-bold">Suprinsha Kc - Marketing Specialist</h5>
+                            <p>Suprinsha handles marketing strategies, helping ToDoApp reach and engage with its audience.</p>
+                            <p>Her innovative marketing campaigns and strong communication skills ensure that our message resonates with a broad audience, driving growth and brand awareness.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Our Story Section -->
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card border-dark shadow-lg">
+                <div class="card-header bg-info text-white">
+                    <h3 class="card-title mb-0 text-center">Our Story</h3>
+                </div>
+                <div class="card-body" id="story-content">
+                    <p class="card-text" id="story-text">ToDoApp was created to provide users with an efficient tool for managing their tasks and to-do lists. We started with a vision to simplify task management and have since evolved into a comprehensive application catering to users worldwide.</p>
+                    <p class="card-text d-none" id="more-story-text">Our journey began with a small team and a big idea. Today, ToDoApp is a robust platform trusted by many for their task management needs. We continue to innovate and enhance our features to better serve our users. From our humble beginnings, we have grown into a company that values innovation, user satisfaction, and continuous improvement. We are committed to providing the best task management experience possible and are constantly exploring new ways to enhance our platform.</p>
+                    <button class="btn btn-info" id="toggle-story-button">Read More</button>
+                    <p class="card-text mt-4">If you have any questions or suggestions, please <a href="{% url 'contact_us' %}" class="btn btn-primary">contact us</a>.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

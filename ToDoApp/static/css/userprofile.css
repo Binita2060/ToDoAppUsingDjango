@@ -1,0 +1,97 @@
+/* Basic styling for the profile section */
+.profile-info {
+    background-color: #f8f9fa; /* Light gray background for profile info */
+    padding: 20px;
+    border-radius: 8px;
+}
+
+/* General styling for the messages section */
+.messages {
+    margin-bottom: 20px;
+}
+
+.alert {
+    margin-bottom: 15px;
+    border-radius: 8px;
+}
+
+/* Styling for cards */
+.card {
+    border-radius: 0.5rem;
+    background-color: #ffffff; /* White background for cards */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for card */
+    margin-bottom: 20px; /* Space between cards */
+}
+
+/* Card header styling */
+.card-header {
+    background-color: #28a745 !important; /* Green background color */
+    color: #ffffff !important; /* White text color */
+    font-size: 1.5rem;
+    border-bottom: 1px solid #6c757d; /* Slightly lighter border */
+    padding: 15px; /* Padding for card header */
+    border-radius: 0.5rem 0.5rem 0 0; /* Rounded top corners */
+    text-align: center; /* Center text horizontally */
+}
+
+/* Card body styling */
+.card-body {
+    padding: 1.5rem;
+    font-size: 1rem; /* Increase font size for better readability */
+    line-height: 1.5; /* Improve line spacing */
+}
+
+/* Button styling for hiding/showing the form */
+#toggleFormBtn {
+    background-color: #007bff; /* Primary button background color */
+    color: #ffffff; /* White button text color */
+    border: none;
+    border-radius: 0.25rem;
+    padding: 0.75rem 1.25rem; /* Slightly larger padding for better click area */
+    cursor: pointer;
+    transition: background-color 0.3s, box-shadow 0.3s;
+    font-size: 1rem; /* Increase font size for better readability */
+}
+
+#toggleFormBtn:hover {
+    background-color: #0056b3; /* Darker shade on hover */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Subtle shadow effect on hover */
+}
+
+/* Button styling for form submission */
+.btn-success {
+    background-color: #28a745; /* Green button background color */
+    color: #ffffff; /* White button text color */
+    border: none;
+    border-radius: 0.25rem;
+    padding: 0.75rem 1.25rem; /* Larger padding for better click area */
+    cursor: pointer;
+    transition: background-color 0.3s, box-shadow 0.3s;
+    font-size: 1rem; /* Increase font size for better readability */
+}
+
+.btn-success:hover {
+    background-color: #218838; /* Darker shade on hover */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Subtle shadow effect on hover */
+}
+
+/* Additional styling */
+.container {
+    max-width: 800px; /* Center content and limit width */
+    margin: auto; /* Center container horizontally */
+}
+
+/* Improve form element styling */
+form input, form select, form textarea {
+    border-radius: 0.25rem;
+    border: 1px solid #ced4da; /* Light border color for form elements */
+    padding: 0.5rem; /* Add padding inside form elements */
+    width: 100%; /* Ensure form elements take full width */
+    box-sizing: border-box; /* Include padding and border in element's total width and height */
+}
+
+form input:focus, form select:focus, form textarea:focus {
+    border-color: #80bdff; /* Highlight border color on focus */
+    outline: none; /* Remove default outline */
+    box-shadow: 0 0 0 0.2rem rgba(38, 143, 255, 0.25); /* Add subtle shadow on focus */
+}
