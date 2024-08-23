@@ -103,12 +103,17 @@ def userprofile(request):
 # Get_todolist_details-- This view displays the details of a specific to-do list, including its tasks.
 @login_required
 def view_all_todolists(request):
+    # Get all to-do lists for the current user
     all_todolists = ToDoList.objects.filter(user=request.user).order_by('-created_at')
+    
+    # Paginate the to-do lists
     paginator = Paginator(all_todolists, 10)  # Show 10 lists per page
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
+    
+    # Context including to-do lists and tasks
     context = {
-        'todolists': page_obj,
+        'todo_lists': page_obj,
     }
     return render(request=request, template_name='ToDoApp/view_all_todolists.html', context=context)
 
@@ -124,10 +129,12 @@ def create_todolist(request):
             todo_list.save()
             messages.success(request, 'To-Do List created successfully!')
             return redirect('view_all_todolists')
+    else:
+        the_form = ToDoListForm()
     context = {
             'the_form':the_form
         }
-    render(request=request, template_name='ToDoApp/create_todolist.html', context=context)
+    return render(request=request, template_name='ToDoApp/create_todolist.html', context=context)
  
 # Update_todolist View -- This view allows the user to update an existing to-do list. It is restricted to the list owner.
 @login_required
@@ -163,13 +170,15 @@ def delete_todolist(request,pk):
 
 # Get_Task_Details -- vThis view displays the details of a specific task, including its comments and attachments.
 @login_required
-def view_all_tasks(request):
+def view_all_tasks(request,pk):
     # Fetch tasks based on completion status (default: not completed)
-    is_completed = request.GET.get('is_completed', 'false').lower() == 'true'
-    all_tasks = Task.objects.filter(user=request.user).order_by('due_date')
+    todolist = get_object_or_404(ToDoList, id=pk)
+    is_completed = request.GET.get('completed', 'false') == 'true'
+    tasks = Task.objects.filter(todo_list=todolist, is_completed=is_completed).order_by('due_date')
     context = {
-        'tasks': all_tasks,
-    }
+        'todolist': todolist,
+        'tasks': tasks
+               }
     return render(request=request, template_name='ToDoApp/view_all_tasks.html', context=context)
 
 # Utility function to get user's tasks, so it will be used only for view_all tasks
@@ -178,8 +187,8 @@ def get_user_tasks(user, is_completed=False):
 
 # Create_Task_View -- This view allows the user to create a new task within a specific to-do list.
 @login_required
-def create_task(request):
-    current_todolist = get_object_or_404(ToDoList, user=request.user)
+def create_task(request,pk):
+    current_todolist = get_object_or_404(ToDoList, id = pk, user=request.user)
     the_form = TaskForm()
     if request.method == "POST":
         the_form = TaskForm(request.POST)
@@ -189,44 +198,50 @@ def create_task(request):
             task.todo_list = current_todolist
             task.save()  # Now save the task with the user assigned
             messages.success(request, 'Task created successfully!')
-            return redirect('view_all_tasks')
+            return redirect('view_all_tasks', pk=current_todolist.pk)
     context = {
         'the_form': the_form,
         'todolist': current_todolist
     }
-    return render(request=request, template_name="add_task.html", context=context)
+    return render(request=request, template_name="ToDoApp/create_task.html", context=context)
 
 #Update Task View --  This view allows the user to update an existing task. The task is linked to the to-do list it belongs to.
 @login_required
-def update_task(request,pk):
+def update_task(request, pk):
     current_task_to_update = get_object_or_404(Task, id=pk, user=request.user)
     the_updated_form = TaskForm(instance=current_task_to_update)
+    
     if request.method == 'POST':
         the_updated_form = TaskForm(request.POST, instance=current_task_to_update)
+        
         if the_updated_form.is_valid():
             the_updated_form.save()
             messages.success(request, 'Task updated successfully!')
-            return redirect('view_all_tasks')
-    else:
-        the_updated_form = TaskForm(instance=current_task_to_update)
+            # Redirect with the pk of the to-do list
+            return redirect('view_all_tasks', pk=current_task_to_update.todo_list.pk)
+    
     context = {
         'the_form': the_updated_form,
         'task': current_task_to_update
     }
+    
     return render(request=request, template_name='ToDoApp/update_task.html', context=context)
 
 # Delete_Task_View -- This view allows the user to delete an existing task. A confirmation is requested before deletion.
 @login_required
-def delete_task(request,pk):
+def delete_task(request, pk):
     current_task = get_object_or_404(Task, id=pk, user=request.user)
+    
     if request.method == 'POST':
+        # When the user submits the form (confirming deletion)
         current_task.delete()
-        messages.success(request, 'Task deleted successfully..!')
-        return redirect('view_all_tasks')
+        messages.success(request, 'Task deleted successfully!')
+        return redirect('view_all_tasks', pk=current_task.todo_list.pk)
+    
     context = {
         'task': current_task
     }
-    return render(request=request, template_name='ToDoApp/delete_task.html', context=context) 
+    return render(request, 'ToDoApp/delete_task.html', context)
 
 # Mark Task Complete View-- This view allows the user to mark a task as completed. The task is then updated accordingly.
 @login_required

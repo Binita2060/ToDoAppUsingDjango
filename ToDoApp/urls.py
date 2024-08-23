@@ -44,16 +44,16 @@ urlpatterns = [
     path('userprofile/', userprofile, name='userprofile'),
     
     #To-DO List Operations
-    path('todolist/',view_all_todolists, name='view_alltodolists'), # View All To-Do Lists: Displays all to-do lists for the authenticated user.
+    path('todolist/',view_all_todolists, name='view_all_todolists'), # View All To-Do Lists: Displays all to-do lists for the authenticated user.
     path('todolist/create/',create_todolist, name='create_todolist'), # Create To-Do List: Form for creating a new to-do list associated with the logged-in user
     path('todolist/update/<int:pk>/', update_todolist, name='update_todolist'), # Update To-Do List: Form for updating an existing to-do list. Restricted to the list owner.
     path('todolist/delete/<int:pk>/', delete_todolist, name='delete_todolist'), # Delete To-Do List: Confirmation and deletion of a specific to-do list
 
     #Task Management
-    path('tasks/',view_all_tasks, name='view_all_tasks'), # View All Tasks: Displays all tasks, with an option to filter by completion status.
-    path('task/create/', create_task, name='create_task'),  # Create Task: Form for creating a new task within a specific to-do list.
-    path('task/update/<int:pk>/', update_task, name='update_task'), # Update Task: Form for updating an existing task. The task must be associated with the logged-in user.
     path('task/delete/<int:pk>/' , delete_task, name='delete_task'), # Delete Task: Confirmation and deletion of a specific task.
+    path('tasks/<int:pk>/',view_all_tasks, name='view_all_tasks'), # View All Tasks: Displays all tasks, with an option to filter by completion status.
+    path('task/create/<int:pk>/', create_task, name='create_task'),  # Create Task: Form for creating a new task within a specific to-do list.
+    path('task/update/<int:pk>/', update_task, name='update_task'), # Update Task: Form for updating an existing task. The task must be associated with the logged-in user.
     path('task/complete/<int:pk>/', mark_task_complete, name='mark_task_complete'), # Mark Task Complete: Allows the user to mark a task as completed.
 
     # Comments, Attachments, Reminders

@@ -1,0 +1,46 @@
+{% extends 'ToDoApp/base.html' %}
+{% load static %}
+
+{% block title %}View All To-Do Lists{% endblock %}
+
+{% block head %}
+<link rel="stylesheet" href="{% static 'css/view_all_todolists.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="container mt-5 mb-5"> <!-- Added mb-5 for spacing at the bottom -->
+    <div class="row justify-content-center">
+        <div class="col-md-10">
+            <div class="card border-dark shadow-lg mb-5"> <!-- Changed mb-13 to mb-5 for consistent spacing -->
+                <div class="card-header bg-primary text-white">
+                    <h3 class="card-title mb-0 text-center">All To-Do Lists</h3>
+                </div>
+                <div class="card-body">
+                    {% if todo_lists %}
+                        <ul class="list-group">
+                            {% for todo in todo_lists %}
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                <div>
+                                    <h5>{{ todo.title }}</h5>
+                                    <p>{{ todo.description }}</p>
+                                </div>
+                                <div>
+                                    <a href="{% url 'view_all_tasks' pk=todo.pk %}" class="btn btn-success me-2">View</a>
+                                    <a href="{% url 'update_todolist' todo.pk %}" class="btn btn-warning me-2">Edit</a>
+                                    <a href="{% url 'delete_todolist' todo.pk %}" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this to-do list?');">Delete</a>
+                                </div>
+                            </li>
+                            {% endfor %}
+                        </ul>
+                    {% else %}
+                        <p class="text-center">No to-do lists found. Create one <a href="{% url 'create_todolist' %}">here</a>.</p>
+                    {% endif %}
+                </div>
+                <div class="card-footer text-center py-4"> <!-- Added py-4 for padding -->
+                    <a href="{% url 'home' %}" class="btn btn-secondary">Back to Home</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

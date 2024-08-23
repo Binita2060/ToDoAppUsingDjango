@@ -1,32 +1,68 @@
 {% extends 'ToDoApp/base.html' %}
+{% load static %}
+{% block title %}Home{% endblock %}
+
+{% block head %}
+<link rel="stylesheet" href="{% static 'css/home.css' %}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+{% endblock %}
 
 {% block content %}
 <div class="container mt-5">
-    <h2 class="mb-4">Your To-Do Lists</h2>
-    {% if todo_lists %}
-        <div class="list-group">
-            {% for todo_list in todo_lists %}
-                <a href="#" class="list-group-item list-group-item-action">
-                    {{ todo_list.title }}
-                </a>
-            {% endfor %}
+    <div class="row">
+        <!-- To-Do Lists Section -->
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-header">
+                    <h3>Your To-Do Lists</h3>
+                    <i class="fas fa-tasks"></i>
+                </div>
+                <ul class="list-group list-group-flush">
+                    {% for list in todo_lists %}
+                    <li class="list-group-item">
+                        <a href="{% url 'view_all_todolists'   %}">{{ list.title }}</a>
+                    </li>
+                    {% empty %}
+                    <li class="list-group-item text-center">You have no to-do lists yet.</li>
+                    {% endfor %}
+                </ul>
+                <div class="card-footer">
+                    <!-- Create To-Do List Button -->
+                    <a href="{% url 'create_todolist' %}" class="btn btn-success">
+                        <i class="fas fa-plus"></i> Create New To-Do List
+                    </a>
+                </div>
+            </div>
         </div>
-    {% else %}
-        <p>You have no to-do lists yet. <a href="{% url 'create_todolist' %}">Create one now</a>.</p>
-    {% endif %}
 
-    <h2 class="mt-5 mb-4">Pending Tasks</h2>
-    {% if tasks %}
-        <ul class="list-group">
-            {% for task in tasks %}
-                <li class="list-group-item">
-                    {{ task.title }} - Due: {{ task.due_date }}
-                    <a href="#" class="btn btn-sm btn-outline-primary float-end">Mark Complete</a>
-                </li>
-            {% endfor %}
-        </ul>
-    {% else %}
-        <p>No pending tasks. <a href="{% url 'create_task' %}">Add a new task</a>.</p>
-    {% endif %}
+        <!-- Pending Tasks Section -->
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header">
+                    <h3>Pending Tasks</h3>
+                    <i class="fas fa-clock"></i>
+                </div>
+                <ul class="list-group list-group-flush">
+                    {% if tasks %}
+                        {% for task in tasks %}
+                        <li class="list-group-item">
+                            <div class="task-detail">
+                                <h5>{{ task.title }}</h5>
+                                <p>Due: {{ task.due_date }}</p>
+                                <p>{{ task.description }}</p>
+                            </div>
+                            <div class="task-actions">
+                                <a href="{% url 'mark_task_complete' task.id %}" class="btn btn-success"><i class="fas fa-check-circle"></i> Complete</a>
+                                <a href="{% url 'update_task' task.id %}" class="btn btn-primary"><i class="fas fa-edit"></i> Edit</a>
+                            </div>
+                        </li>
+                        {% endfor %}
+                    {% else %}
+                        <li class="list-group-item text-center">No pending tasks. Good job!</li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    </div>
 </div>
 {% endblock %}

@@ -1,0 +1,63 @@
+/* General container styling */
+.container {
+    margin-top: 20px;
+}
+
+/* Card styling */
+.card {
+    border-radius: 15px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+
+.card-header {
+    background-image: linear-gradient(to right top, #8b49dc, #7a3cc7);
+    color: #fff;
+    text-align: center;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    font-size: 1.25rem;
+    padding: 20px;
+    font-size: 1.5rem;
+    font-weight: bold;
+    border-radius: 10px 10px 0 0;
+}
+
+.card-header i {
+    font-size: 1.5rem;
+}
+
+
+
+/* Task list styling */
+.list-group-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+}
+
+.task-detail h5 {
+    font-size: 1.125rem;
+    margin-bottom: 0.5rem;
+}
+
+.task-detail p {
+    margin-bottom: 0.5rem;
+    font-size: 0.875rem;
+    color: #6c757d;
+}
+
+/* Task action buttons */
+.task-actions .btn {
+    margin-left: 10px;
+    border-radius: 50px;
+    padding: 0.5rem 1rem;
+    font-size: 0.875rem;
+}
+
+.task-actions .btn i {
+    margin-right: 5px;
+}

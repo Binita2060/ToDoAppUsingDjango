@@ -13,11 +13,12 @@ class UserProfile(models.Model):
         ("Others", "Others")
     )
     user = models.OneToOneField(User, on_delete=models.CASCADE, verbose_name="User:")
+    full_name = models.CharField(max_length=100, blank=True, verbose_name="Full Name")  # Added full_name
     bio = models.TextField(blank=True, null=True, verbose_name="Your Bio:")
     address = models.CharField(max_length=100, blank=False, null=True, verbose_name="Your Address:")
-    birth_date = models.DateField(null=True, blank=True, verbose_name="Your BirthDate")
+    birth_date = models.DateField(null=True, blank=True, verbose_name="Your Birth Date")
     age = models.CharField(max_length=2, null=True, blank=False, verbose_name="Your Age:")
-    email = models.EmailField(max_length=1000, null=True, blank=False, verbose_name="Your Email address:")
+    email = models.EmailField(max_length=1000, null=True, blank=False, verbose_name="Your Email Address:")
     gender = models.CharField(max_length=1000, null=True, blank=False, choices=gender_option)
     phone_number = models.CharField(max_length=15, blank=False, null=True, verbose_name="Your Phone Number:")
 

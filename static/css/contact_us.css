@@ -11,6 +11,8 @@ body {
 }
 
 .card-header {
+    background-image: linear-gradient(to right top, #8b49dc, #7a3cc7);
+    color: #fff;
     border-bottom: 1px solid #dee2e6;
 }
 

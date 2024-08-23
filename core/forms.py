@@ -3,8 +3,7 @@ from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.models import User
 from core.models import *
 
-class PasswordResetRequestForm(forms.Form):
-    email = forms.EmailField(label='Enter your email address', max_length=254)
+
 class SignupForm(UserCreationForm):
     email = forms.EmailField(
         required=True,
@@ -136,7 +135,7 @@ class ToDoListForm(forms.ModelForm):
         model = ToDoList
         fields = ['title', 'description']
         widgets = {
-            'title': forms.TextInput(attrs={'placeholder': 'ENter to-do list title..'}), # Placeholder for title.
+            'title': forms.TextInput(attrs={'placeholder': 'Enter to-do list title..'}), # Placeholder for title.
             'description' : forms.Textarea(attrs={'rows':3, 'placeholder': 'Enter a brief description...'}),  # Placeholder and row size for description.
         }
         labels = {
@@ -177,9 +176,15 @@ class UserProfileForm(forms.ModelForm):
         label="Birth Date",  # Custom label for birth_date.
         help_text="Select your birth date."  # Help text for birth_date.
     )
+    full_name = forms.CharField(
+        max_length=100,
+        widget=forms.TextInput(attrs={'placeholder': 'Enter your full name...'}),
+        label="Full Name",
+        help_text="Enter your full name."
+    )
     class Meta:
         model = UserProfile
-        fields = ['bio', 'address', 'birth_date', 'age', 'email', 'gender', 'phone_number']
+        fields = ['full_name', 'bio', 'address', 'birth_date', 'age', 'email', 'gender', 'phone_number']
         widgets = {
             'bio': forms.Textarea(attrs={'rows': 3, 'placeholder': 'Tell us something about yourself...'}),  # Placeholder for bio.
             'address': forms.TextInput(attrs={'placeholder': 'Enter your address...'}),  # Placeholder for address.
@@ -199,6 +204,8 @@ class UserProfileForm(forms.ModelForm):
 # - The `UserProfileForm` is tied to the `UserProfile` model.
 # - It captures comprehensive user details such as bio, address, birth_date, age, email, gender, and phone number.
 # - The form includes custom widgets, labels, and help texts to make it easy to use and visually appealing.
+  
+
   
  # Attachment Form
 class AttachmentForm(forms.ModelForm):
