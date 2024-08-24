@@ -250,7 +250,7 @@ def mark_task_complete(request, pk):
     current_task.is_completed = True
     current_task.save()
     messages.success(request, 'Task marked as completed!')
-    return redirect('get_todolist_detail', pk=current_task.todo_list.pk)
+    return redirect('view_all_tasks', pk=current_task.todo_list.pk)
 
 # AddComment View -- This view allows the user to add a comment to a specific task.
 @login_required
